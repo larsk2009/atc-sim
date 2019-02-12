@@ -20,7 +20,7 @@ public class RadarRing : MonoBehaviour
 
     public void DrawCircle(float diameter)
     {
-        radius = diameter / 2;
+        radius = diameter;
         float deltaTheta = (2f * Mathf.PI) / vertexCount;
         float theta = 0f;
 

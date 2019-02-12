@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.scripts.Airplane;
 using UnityEngine;
 
 public class RadarManager : MonoBehaviour
@@ -13,7 +14,7 @@ public class RadarManager : MonoBehaviour
     private LineRenderer lineRenderer;
 
     public RadarRing Circle;
-    public static float WorldPointPerMile
+    public static float WorldPointPerNauticalMile
     {
         get;
         private set;
@@ -30,7 +31,7 @@ public class RadarManager : MonoBehaviour
         Debug.Log("Screen Height: " + height);
 
         //Determine how much miles one pixel needs to be to fit 40 miles (by default) on the screen.
-        WorldPointPerMile = Camera.main.ScreenToWorldPoint(new Vector2(width, height)).x / (float)standardRange;
+        WorldPointPerNauticalMile = Camera.main.ScreenToWorldPoint(new Vector2(width, height)).y / (float)standardRange;
 
         DrawRadarUi();
     }
@@ -39,19 +40,19 @@ public class RadarManager : MonoBehaviour
     {
         //Draw radar rings
         var clone = Instantiate(Circle);
-        clone.DrawCircle(10 * WorldPointPerMile);
+        clone.DrawCircle(10 * WorldPointPerNauticalMile);
         clone = Instantiate(Circle);
-        clone.DrawCircle(20 * WorldPointPerMile);
+        clone.DrawCircle(20 * WorldPointPerNauticalMile);
         clone = Instantiate(Circle);
-        clone.DrawCircle(30 * WorldPointPerMile);
+        clone.DrawCircle(30 * WorldPointPerNauticalMile);
         clone = Instantiate(Circle);
-        clone.DrawCircle(40 * WorldPointPerMile);
+        clone.DrawCircle(40 * WorldPointPerNauticalMile);
     }
 
     void Awake()
     {
         if (instance == null)
-        {     // initialize only  one instance.
+        {     // initialize only one instance.
             instance = this;
             GameObject.DontDestroyOnLoad(this.gameObject);
         }
